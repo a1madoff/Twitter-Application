@@ -77,20 +77,26 @@ public class TimelineActivity extends AppCompatActivity {
 
     private void loadMoreData() {
         // Sends an API request to retrieve appropriate paginated data
+        client.getNextPageOfTweets(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                Log.i(TAG, "onSuccess for loadMoreData");
 
+                // Deserializes and constructs a new model object from the API response
+                JSONArray jsonArray = json.jsonArray;
+                try {
+                    // Appends the new data objects to the existing set of items and notifies the adapter of the new items
+                    adapter.addAll(Tweet.fromJsonArray(jsonArray));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
-        // Sends the request including an offset value (i.e `page`) as a query parameter.
-
-
-        // Deserializes and constructs new model objects from the API response
-
-
-        // Appends the new data objects to the existing set of items inside the array of items
-
-
-        // Notifies the adapter of the new items made with `notifyItemRangeInserted()`
-
-        
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.e(TAG, "onFailure for loadMoreData");
+            }
+        }, tweets.get(tweets.size() - 1).id);
     }
 
     private void populateHomeTimeline() {
