@@ -12,11 +12,11 @@ The following **required** functionality is completed:
 * [~]	User can **view tweets from their home timeline**
   * [~] User is displayed the username, name, and body for each tweet
   * [ ] User is displayed the [relative timestamp](https://gist.github.com/nesquena/f786232f5ef72f6e10a7) for each tweet "8m", "7h"
-* [ ] User can **compose and post a new tweet**
+* [x] User can **compose and post a new tweet**
   * [x] User can click a “Compose” icon in the Action Bar on the top right
-  * [ ] User can then enter a new tweet and post this to twitter
-  * [ ] User is taken back to home timeline with **new tweet visible** in timeline
-  * [ ] Newly created tweet should be manually inserted into the timeline and not rely on a full refresh
+  * [x] User can then enter a new tweet and post this to twitter
+  * [x] User is taken back to home timeline with **new tweet visible** in timeline
+  * [x] Newly created tweet should be manually inserted into the timeline and not rely on a full refresh
 * [x] User can **see a counter with total number of characters left for tweet** on compose tweet page
 * [x] User can **pull down to refresh tweets timeline**
 * [ ] User can **see embedded image media within a tweet** on list or detail view.
@@ -32,7 +32,7 @@ The following **stretch** features are implemented:
 * [x] User can view more tweets as they scroll with infinite pagination
 * [ ] Compose tweet functionality is build using modal overlay
 * [ ] User can **click a link within a tweet body** on tweet details view. The click will launch the web browser with relevant page opened.
-* [ ] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.org/android/Using-Parceler).
+* [x] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.org/android/Using-Parceler).
 * [ ] Replace all icon drawables and other static image assets with [vector drawables](http://guides.codepath.org/android/Drawables#vector-drawables) where appropriate.
 * [ ] User can view following / followers list through any profile they view.
 * [ ] Use the View Binding library to reduce view boilerplate.
