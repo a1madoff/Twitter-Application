@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.graphics.Matrix;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
+import com.bumptech.glide.request.RequestOptions;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
 
@@ -67,23 +76,39 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         ImageView ivProfileImage;
         TextView tvBody;
         TextView tvScreenName;
+        TextView tvSpacedName;
+        TextView tvRelativeTime;
+        ImageView ivContentImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
-
+            tvSpacedName = itemView.findViewById(R.id.tvSpacedName);
+            tvRelativeTime = itemView.findViewById(R.id.tvRelativeTime);
+            ivContentImage = itemView.findViewById(R.id.ivContentImage);
 
         }
 
         public void bind(Tweet tweet) {
             tvBody.setText(tweet.body);
-            tvScreenName.setText(tweet.user.screenName);
+            tvScreenName.setText(String.format("@%s", tweet.user.screenName));
+            tvSpacedName.setText(tweet.user.name);
+            tvRelativeTime.setText(ParseRelativeDate.getRelativeTimeAgo(tweet.createdAt));
 
             Glide.with(context)
                     .load(tweet.user.profileImageUrl)
+                    .transform(new RoundedCornersTransformation(30, 10))
                     .into(ivProfileImage);
+
+            if (!tweet.contentImageUrl.equals("")) {
+                ivContentImage.setVisibility(View.VISIBLE);
+                Glide.with(context)
+                        .load(tweet.contentImageUrl)
+                        .transform(new RoundedCornersTransformation(30, 10))
+                        .into(ivContentImage);
+            }
         }
     }
 }

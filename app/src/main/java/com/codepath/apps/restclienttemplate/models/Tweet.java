@@ -1,5 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,10 +12,13 @@ import java.util.List;
 
 @Parcel
 public class Tweet {
+    public static final String TAG = "Tweet";
+
     public String body;
     public String createdAt;
     public long id;
     public User user;
+    public String contentImageUrl;
 
     // Empty constructor for Parceler library
     public Tweet() {}
@@ -24,7 +29,7 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.id = jsonObject.getLong("id");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
-
+        tweet.contentImageUrl = getContentImageUrl(jsonObject);
         return tweet;
     }
 
@@ -35,5 +40,16 @@ public class Tweet {
         }
 
         return tweets;
+    }
+
+    public static String getContentImageUrl(JSONObject jsonObject) {
+        String contentImageUrl;
+        try {
+            contentImageUrl = jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url_https");
+        } catch (JSONException e) {
+            Log.i(TAG, "No media");
+            contentImageUrl = "";
+        }
+        return contentImageUrl;
     }
 }

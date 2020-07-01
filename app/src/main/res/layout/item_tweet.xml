@@ -13,7 +13,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="2dp"
         tools:srcCompat="@tools:sample/avatars[0]" />
 
     <TextView
@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/ivProfileImage"
+        android:layout_marginTop="1.5dp"
+        android:layout_toEndOf="@+id/tvSpacedName"
         tools:text="BiggityBurner" />
 
     <TextView
@@ -33,6 +33,42 @@
         android:layout_below="@+id/tvScreenName"
         android:layout_marginStart="5dp"
         android:layout_marginTop="2dp"
+        android:layout_marginEnd="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         tools:text="Twitter more like yeeter. Gotem." />
+
+    <TextView
+        android:id="@+id/tvRelativeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="5dp"
+        tools:text="9h" />
+
+    <TextView
+        android:id="@+id/tvSpacedName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:textStyle="bold"
+        tools:text="Biggity Burner" />
+
+    <ImageView
+        android:id="@+id/ivContentImage"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"
+        tools:visibility="visible" />
 </RelativeLayout>
