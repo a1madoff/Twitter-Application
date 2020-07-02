@@ -22,10 +22,11 @@
     <style name="ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:background">@color/twitter_blue</item>
         <item name="background">@color/twitter_blue</item>
+        <item name="icon">@drawable/ic_vector_retweet</item>
     </style>
 
     <style name="counterText">
-        <item name="android:textColor">#aa5353cc</item>
+        <item name="android:textColor">@color/twitter_blue</item>
     </style>
 
     <style name="counterOverride">

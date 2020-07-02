@@ -64,11 +64,11 @@
     <ImageView
         android:id="@+id/ivContentImage"
         android:layout_width="300dp"
-        android:layout_height="180dp"
+        android:layout_height="200dp"
         android:layout_below="@+id/tvBody"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:scaleType="fitXY"
         android:visibility="gone"
@@ -78,23 +78,23 @@
     <ImageView
         android:id="@+id/ivReply"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:adjustViewBounds="true"
+        android:layout_height="19dp"
         android:layout_below="@+id/ivContentImage"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="9dp"
         android:layout_toEndOf="@+id/ivProfileImage"
+        android:adjustViewBounds="true"
         android:tint="@color/light_gray"
-        app:srcCompat="@drawable/ic_reply" />
+        app:srcCompat="@drawable/ic_comment" />
 
     <ImageView
         android:id="@+id/ivRetweet"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="18dp"
         android:adjustViewBounds="true"
         android:layout_below="@+id/ivContentImage"
         android:layout_marginStart="85dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/ivReply"
         app:srcCompat="@drawable/ic_vector_retweet"
         android:tint="@color/light_gray"/>
@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivContentImage"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="9dp"
         android:layout_toEndOf="@+id/ivRetweet"
         android:text="184"
         android:textColor="@color/light_gray"
@@ -114,11 +114,11 @@
     <ImageView
         android:id="@+id/ivHeart"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="18dp"
         android:adjustViewBounds="true"
         android:layout_below="@+id/ivContentImage"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/tvNumRetweets"
         app:srcCompat="@drawable/ic_vector_heart" />
 
@@ -129,7 +129,7 @@
         android:layout_below="@+id/ivContentImage"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="9dp"
         android:layout_marginEnd="0dp"
         android:layout_toEndOf="@+id/ivHeart"
         android:text="1,319"
