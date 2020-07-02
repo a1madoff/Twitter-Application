@@ -46,6 +46,7 @@ public class Tweet {
         String contentImageUrl;
         try {
             contentImageUrl = jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url_https");
+            Log.i(TAG, contentImageUrl);
         } catch (JSONException e) {
             Log.i(TAG, "No media");
             contentImageUrl = "";
