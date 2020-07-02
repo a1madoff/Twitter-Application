@@ -21,22 +21,20 @@
         android:id="@+id/tvScreenName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/tvSpacedName"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="1.5dp"
-        android:layout_toEndOf="@+id/tvSpacedName"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
         tools:text="\@BiggityBurner" />
 
     <TextView
         android:id="@+id/tvBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvScreenName"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="2dp"
+        android:layout_below="@+id/ivProfileImage"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_toEndOf="@+id/ivProfileImage"
         android:textColor="@android:color/primary_text_light"
         tools:text="Twitter more like yeeter. Gotem." />
 
@@ -55,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="6dp"
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:textColor="@android:color/primary_text_light"
@@ -92,7 +90,7 @@
     <ImageView
         android:id="@+id/ivRetweet"
         android:layout_width="wrap_content"
-        android:layout_height="19dp"
+        android:layout_height="18dp"
         android:adjustViewBounds="true"
         android:layout_below="@+id/ivContentImage"
         android:layout_marginStart="90dp"
