@@ -20,4 +20,5 @@
     <color name="inline_action_retweet">@color/medium_green</color>
     <color name="inline_action_retweet_pressed">@color/medium_gray_50</color>
     <color name="background_color">#FFFFFF</color>
+    <color name="red">#FF0000</color>
 </resources>

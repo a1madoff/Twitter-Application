@@ -19,6 +19,11 @@ public class Tweet {
     public long id;
     public User user;
     public String contentImageUrl;
+    public int retweetCount;
+    public int likeCount;
+    public boolean isRetweeted;
+    public boolean isLiked;
+
 
     // Empty constructor for Parceler library
     public Tweet() {}
@@ -30,6 +35,13 @@ public class Tweet {
         tweet.id = jsonObject.getLong("id");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.contentImageUrl = getContentImageUrl(jsonObject);
+
+        tweet.retweetCount = jsonObject.getInt("retweet_count");
+        tweet.likeCount = jsonObject.getInt("favorite_count");
+        tweet.isRetweeted = jsonObject.getBoolean("retweeted");
+        tweet.isLiked = jsonObject.getBoolean("favorited");
+
+
         return tweet;
     }
 

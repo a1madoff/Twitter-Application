@@ -95,7 +95,7 @@
         android:layout_height="18dp"
         android:adjustViewBounds="true"
         android:layout_below="@+id/ivContentImage"
-        android:layout_marginStart="85dp"
+        android:layout_marginStart="90dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/ivReply"
         app:srcCompat="@drawable/ic_vector_retweet"
@@ -126,14 +126,12 @@
         android:tint="@color/medium_gray"/>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvNumLikes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivContentImage"
-        android:layout_alignParentEnd="true"
         android:layout_marginStart="5dp"
         android:layout_marginTop="9dp"
-        android:layout_marginEnd="0dp"
         android:layout_toEndOf="@+id/ivHeart"
         android:text="1,319"
         android:textColor="@color/medium_gray"

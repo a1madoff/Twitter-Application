@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Matrix;
+import android.graphics.PorterDuff;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +24,13 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
+    private final int REQUEST_CODE_REPLY = 20;
 
     Context context;
     List<Tweet> tweets;
@@ -82,7 +85,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvSpacedName;
         TextView tvRelativeTime;
         ImageView ivContentImage;
+
         ImageView ivReply;
+        ImageView ivRetweet;
+        TextView tvNumRetweets;
+        ImageView ivHeart;
+        TextView tvNumLikes;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,8 +100,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvSpacedName = itemView.findViewById(R.id.tvSpacedName);
             tvRelativeTime = itemView.findViewById(R.id.tvRelativeTime);
             ivContentImage = itemView.findViewById(R.id.ivContentImage);
-            ivReply = itemView.findViewById(R.id.ivReply);
 
+            ivReply = itemView.findViewById(R.id.ivReply);
+            ivRetweet = itemView.findViewById(R.id.ivRetweet);
+            tvNumRetweets = itemView.findViewById(R.id.tvNumRetweets);
+            ivHeart = itemView.findViewById(R.id.ivHeart);
+            tvNumLikes = itemView.findViewById(R.id.tvNumLikes);
+
+            // Reply button
             ivReply.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -102,8 +116,37 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         Intent intent = new Intent(context, ReplyActivity.class);
                         Tweet currentTweet = tweets.get(position);
                         intent.putExtra("tweet", Parcels.wrap(currentTweet));
-                        context.startActivity(intent);
+                        ((TimelineActivity) context).startActivityForResult(intent, REQUEST_CODE_REPLY);
                     }
+                }
+            });
+
+            // Retweet button
+            ivRetweet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // TODO: HOW TO GET WHETHER RETWEETED? CHECK DRAWABLE?
+//                    ivRetweet.setImageResource(R.drawable.ic_comment);
+                    ivRetweet.setImageResource(R.drawable.ic_vector_retweet_green);
+
+                    // Increments the number of retweets
+                    int currnumRetweets = Integer.parseInt(tvNumRetweets.getText().toString().replaceAll(",", ""));
+                    currnumRetweets++;
+                    tvNumRetweets.setText(NumberFormat.getIntegerInstance().format(currnumRetweets));
+                }
+            });
+
+            // Like button
+            ivHeart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ivRetweet.setImageResource(R.drawable.ic_comment);
+//                    ivRetweet.setImageResource(R.drawable.ic_vector_retweet_green);
+
+                    // Increments the number of retweets
+                    int currnumLikes = Integer.parseInt(tvNumLikes.getText().toString().replaceAll(",", ""));
+                    currnumLikes++;
+                    tvNumRetweets.setText(NumberFormat.getIntegerInstance().format(currnumLikes));
                 }
             });
         }
@@ -113,6 +156,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName.setText(String.format("@%s", tweet.user.screenName));
             tvSpacedName.setText(tweet.user.name);
             tvRelativeTime.setText(ParseRelativeDate.getRelativeTimeAgo(tweet.createdAt));
+            tvNumRetweets.setText(NumberFormat.getIntegerInstance().format(tweet.retweetCount));
+            tvNumLikes.setText(NumberFormat.getIntegerInstance().format(tweet.likeCount));
 
             Glide.with(context)
                     .load(tweet.user.profileImageUrl)
@@ -123,10 +168,18 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 ivContentImage.setVisibility(View.VISIBLE);
                 Glide.with(context)
                         .load(tweet.contentImageUrl)
-                        .transform(new RoundedCornersTransformation(50, 10))
+                        .transform(new RoundedCornersTransformation(10, 10))
                         .into(ivContentImage);
             } else {
                 ivContentImage.setVisibility(View.GONE);
+            }
+
+            if (tweet.isLiked) {
+                // TODO: Change drawable
+            }
+
+            if (tweet.isRetweeted) {
+                // TODO: Change drawable
             }
         }
 

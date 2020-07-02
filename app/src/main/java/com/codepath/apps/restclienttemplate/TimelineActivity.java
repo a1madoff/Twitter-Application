@@ -30,7 +30,8 @@ import okhttp3.Headers;
 
 public class TimelineActivity extends AppCompatActivity {
     public static final String TAG = "TimelineActivity";
-    private final int REQUEST_CODE = 20;
+    private final int REQUEST_CODE_POST = 10;
+    private final int REQUEST_CODE_REPLY = 20;
 
     TwitterClient client;
     RecyclerView rvTweets;
@@ -131,7 +132,7 @@ public class TimelineActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.compose) {
             // Navigate to the compose activity
             Intent intent = new Intent(this, ComposeActivity.class);
-            startActivityForResult(intent, REQUEST_CODE);
+            startActivityForResult(intent, REQUEST_CODE_POST);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -139,9 +140,24 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CODE_POST && resultCode == RESULT_OK) {
             // Gets the data (tweet) from the intent
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+
+            // Updates the RecyclerView with the tweet
+            tweets.add(0, tweet);
+            // Notifies the adapter that the tweet was added
+            adapter.notifyItemInserted(0);
+            rvTweets.smoothScrollToPosition(0);
+        }
+
+        if (requestCode == REQUEST_CODE_REPLY && resultCode == RESULT_OK) {
+            // Gets the data (tweet) from the intent
+            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+
+            int indexFirstSpace = tweet.body.indexOf(' ');
+            tweet.body = tweet.body.substring(0, indexFirstSpace) + '\n' + '\n' + tweet.body.substring(indexFirstSpace + 1);
+            tweet.body = "Replying to " + tweet.body;
 
             // Updates the RecyclerView with the tweet
             tweets.add(0, tweet);
