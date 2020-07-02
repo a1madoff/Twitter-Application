@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    android:layout_marginTop="2dp">
 
     <ImageView
         android:id="@+id/ivProfileImage"
@@ -84,8 +85,9 @@
         android:layout_marginTop="9dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:adjustViewBounds="true"
-        android:tint="@color/light_gray"
-        app:srcCompat="@drawable/ic_comment" />
+        android:tint="@color/medium_gray"
+        app:srcCompat="@drawable/ic_comment"
+        android:layout_marginBottom="5dp"/>
 
     <ImageView
         android:id="@+id/ivRetweet"
@@ -97,7 +99,7 @@
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/ivReply"
         app:srcCompat="@drawable/ic_vector_retweet"
-        android:tint="@color/light_gray"/>
+        android:tint="@color/medium_gray"/>
 
     <TextView
         android:id="@+id/tvNumRetweets"
@@ -108,7 +110,7 @@
         android:layout_marginTop="9dp"
         android:layout_toEndOf="@+id/ivRetweet"
         android:text="184"
-        android:textColor="@color/light_gray"
+        android:textColor="@color/medium_gray"
         android:textSize="14sp" />
 
     <ImageView
@@ -120,7 +122,8 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/tvNumRetweets"
-        app:srcCompat="@drawable/ic_vector_heart" />
+        app:srcCompat="@drawable/ic_vector_heart"
+        android:tint="@color/medium_gray"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -133,6 +136,6 @@
         android:layout_marginEnd="0dp"
         android:layout_toEndOf="@+id/ivHeart"
         android:text="1,319"
-        android:textColor="@color/light_gray"
+        android:textColor="@color/medium_gray"
         android:textSize="14sp" />
 </RelativeLayout>

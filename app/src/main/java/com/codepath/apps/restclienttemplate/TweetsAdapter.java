@@ -1,7 +1,9 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Matrix;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.request.RequestOptions;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
+import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -71,7 +74,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     }
 
     // Defines a ViewHolder
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView ivProfileImage;
         TextView tvBody;
@@ -79,6 +82,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvSpacedName;
         TextView tvRelativeTime;
         ImageView ivContentImage;
+        ImageView ivReply;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,7 +92,20 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvSpacedName = itemView.findViewById(R.id.tvSpacedName);
             tvRelativeTime = itemView.findViewById(R.id.tvRelativeTime);
             ivContentImage = itemView.findViewById(R.id.ivContentImage);
+            ivReply = itemView.findViewById(R.id.ivReply);
 
+            ivReply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Intent intent = new Intent(context, ReplyActivity.class);
+                        Tweet currentTweet = tweets.get(position);
+                        intent.putExtra("tweet", Parcels.wrap(currentTweet));
+                        context.startActivity(intent);
+                    }
+                }
+            });
         }
 
         public void bind(Tweet tweet) {
@@ -111,6 +128,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             } else {
                 ivContentImage.setVisibility(View.GONE);
             }
+        }
+
+        @Override
+        public void onClick(View view) {
+            // Clicking on tweet, go to details activity
         }
     }
 }
