@@ -40,7 +40,8 @@ public class Tweet {
         tweet.likeCount = jsonObject.getInt("favorite_count");
         tweet.isRetweeted = jsonObject.getBoolean("retweeted");
         tweet.isLiked = jsonObject.getBoolean("favorited");
-
+//        Log.i("likecount", tweet.body);
+//        Log.i("likecount", String.valueOf(jsonObject.getInt("favorite_count")));
 
         return tweet;
     }

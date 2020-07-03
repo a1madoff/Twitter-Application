@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Matrix;
 import android.graphics.PorterDuff;
 import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
     private final int REQUEST_CODE_REPLY = 20;
+    private final int REQUEST_CODE_DETAILS = 30;
 
     Context context;
     List<Tweet> tweets;
@@ -108,6 +110,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             ivHeart = itemView.findViewById(R.id.ivHeart);
             tvNumLikes = itemView.findViewById(R.id.tvNumLikes);
 
+            itemView.setOnClickListener(this);
+
             // Reply button
             ivReply.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -129,17 +133,15 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Tweet currentTweet = tweets.get(position);
-                        int currnumRetweets = Integer.parseInt(tvNumRetweets.getText().toString().replaceAll(",", ""));
-
                         if (currentTweet.isRetweeted) {
                             ivRetweet.setColorFilter(ContextCompat.getColor(context,R.color.medium_gray));
-                            currnumRetweets--;
-                            tvNumRetweets.setText(NumberFormat.getIntegerInstance().format(currnumRetweets));
+                            currentTweet.retweetCount--;
+                            tvNumRetweets.setText(NumberFormat.getIntegerInstance().format(currentTweet.retweetCount));
                             currentTweet.isRetweeted = false;
                         } else {
                             ivRetweet.setColorFilter(ContextCompat.getColor(context,R.color.medium_green));
-                            currnumRetweets++;
-                            tvNumRetweets.setText(NumberFormat.getIntegerInstance().format(currnumRetweets));
+                            currentTweet.retweetCount++;
+                            tvNumRetweets.setText(NumberFormat.getIntegerInstance().format(currentTweet.retweetCount));
                             currentTweet.isRetweeted = true;
                         }
                     }
@@ -153,19 +155,17 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Tweet currentTweet = tweets.get(position);
-                        int currnumLikes = Integer.parseInt(tvNumLikes.getText().toString().replaceAll(",", ""));
-
                         if (currentTweet.isLiked) {
                             ivHeart.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_vector_heart));
                             ivHeart.setColorFilter(ContextCompat.getColor(context,R.color.medium_gray));
-                            currnumLikes--;
-                            tvNumLikes.setText(NumberFormat.getIntegerInstance().format(currnumLikes));
+                            currentTweet.likeCount--;
+                            tvNumLikes.setText(NumberFormat.getIntegerInstance().format(currentTweet.likeCount));
                             currentTweet.isLiked = false;
                         } else {
                             ivHeart.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_vector_heart_full));
                             ivHeart.setColorFilter(ContextCompat.getColor(context,R.color.medium_red_lighter));
-                            currnumLikes++;
-                            tvNumLikes.setText(NumberFormat.getIntegerInstance().format(currnumLikes));
+                            currentTweet.likeCount++;
+                            tvNumLikes.setText(NumberFormat.getIntegerInstance().format(currentTweet.likeCount));
                             currentTweet.isLiked = true;
                         }
                     }
@@ -199,16 +199,29 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             if (tweet.isLiked) {
                 ivHeart.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_vector_heart_full));
                 ivHeart.setColorFilter(ContextCompat.getColor(context,R.color.medium_red_lighter));
+            } else {
+                ivHeart.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_vector_heart));
+                ivHeart.setColorFilter(ContextCompat.getColor(context,R.color.medium_gray));
             }
 
             if (tweet.isRetweeted) {
                 ivRetweet.setColorFilter(ContextCompat.getColor(context,R.color.medium_green));
+            } else {
+                ivRetweet.setColorFilter(ContextCompat.getColor(context,R.color.medium_gray));
             }
         }
 
         @Override
         public void onClick(View view) {
+            Log.i("click", "clicked");
             // Clicking on tweet, go to details activity
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                Tweet currentTweet = tweets.get(position);
+                Intent intent = new Intent(context, DetailsActivity.class);
+                intent.putExtra("tweet", Parcels.wrap(currentTweet));
+                ((TimelineActivity) context).startActivityForResult(intent, REQUEST_CODE_DETAILS);
+            }
         }
     }
 }

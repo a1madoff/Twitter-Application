@@ -32,6 +32,7 @@ public class TimelineActivity extends AppCompatActivity {
     public static final String TAG = "TimelineActivity";
     private final int REQUEST_CODE_POST = 10;
     private final int REQUEST_CODE_REPLY = 20;
+    private final int REQUEST_CODE_DETAILS = 30;
 
     TwitterClient client;
     RecyclerView rvTweets;
@@ -164,6 +165,27 @@ public class TimelineActivity extends AppCompatActivity {
             // Notifies the adapter that the tweet was added
             adapter.notifyItemInserted(0);
             rvTweets.smoothScrollToPosition(0);
+        }
+
+        if (requestCode == REQUEST_CODE_DETAILS) {
+            // Gets the data (tweet) from the intent
+            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+
+            int position = -1;
+
+            for (int i = 0; i < tweets.size(); i++) {
+                if (tweets.get(i).id == tweet.id) {
+                    position = i;
+                    break;
+                }
+            }
+            
+            // Updates the RecyclerView with the tweet
+            tweets.remove(position);
+            tweets.add(position, tweet);
+            // Notifies the adapter that the tweet was added
+            adapter.notifyItemChanged(position);
+            rvTweets.smoothScrollToPosition(position);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

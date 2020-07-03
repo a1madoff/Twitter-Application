@@ -62,8 +62,6 @@ public class ReplyActivity extends AppCompatActivity {
                     Toast.makeText(ReplyActivity.this, "Sorry, your tweet cannot be empty", Toast.LENGTH_LONG).show();
                 } else if (tweetContent.length() > MAX_TWEET_LENGTH) {
                     Toast.makeText(ReplyActivity.this, "Sorry, your tweet is too long", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(ReplyActivity.this, tweetContent, Toast.LENGTH_LONG).show();
                 }
 
                 // Makes an API call to Twitter to publish the tweet
