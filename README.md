@@ -41,7 +41,8 @@ The following **stretch** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
+* [x] Tweets dynamically show the number of likes and retweets next to their corresponding icons
+* [x] Displays an informative message and prevents the user from posting a tweet if it is empty or over 280 characters
 
 ## Video Walkthrough
 
