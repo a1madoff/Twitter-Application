@@ -38,6 +38,9 @@
         android:layout_marginEnd="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="5dp"
+        android:autoLink="all"
+        android:linksClickable="true"
+        android:textColorLink="@color/twitter_blue_fill_pressed"
         android:textColor="@android:color/primary_text_light"
         tools:text="Twitter more like yeeter. Gotem." />
 

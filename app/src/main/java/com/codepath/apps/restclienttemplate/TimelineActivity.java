@@ -40,6 +40,7 @@ public class TimelineActivity extends AppCompatActivity {
     TweetsAdapter adapter;
     SwipeRefreshLayout swipeContainer;
     EndlessRecyclerViewScrollListener scrollListener;
+    MenuItem miActionProgressItem;
 
     @Override
 
@@ -97,6 +98,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void loadMoreData() {
+        miActionProgressItem.setVisible(true);
         // Sends an API request to retrieve appropriate paginated data
         client.getNextPageOfTweets(new JsonHttpResponseHandler() {
             @Override
@@ -111,6 +113,7 @@ public class TimelineActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                miActionProgressItem.setVisible(false);
             }
 
             @Override
@@ -124,6 +127,14 @@ public class TimelineActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflates the menu, adding items to the action bar if it's present
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Store instance of the menu item containing progress
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+        // Return to finish
         return true;
     }
 
@@ -207,7 +218,7 @@ public class TimelineActivity extends AppCompatActivity {
                     Log.e(TAG, "JSON excpetion", e);
                     e.printStackTrace();
                 }
-
+                miActionProgressItem.setVisible(false);
             }
 
             @Override

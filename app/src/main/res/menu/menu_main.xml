@@ -3,6 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/miActionProgress"
+        android:title="Loading..."
+        android:visible="true"
+        android:orderInCategory="0"
+        app:showAsAction="always"
+        app:actionLayout="@layout/action_view_progress" />
+
+    <item
         android:id="@+id/compose"
         android:icon="@drawable/vector_compose_fab"
         android:title="Compose"
