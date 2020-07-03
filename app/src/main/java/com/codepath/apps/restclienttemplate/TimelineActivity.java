@@ -3,6 +3,8 @@ package com.codepath.apps.restclienttemplate;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,8 +16,10 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.codepath.apps.restclienttemplate.databinding.ActivityTimelineBinding;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -28,7 +32,7 @@ import java.util.List;
 
 import okhttp3.Headers;
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements ComposeDialogFragment.EditNameDialogListener {
     public static final String TAG = "TimelineActivity";
     private final int REQUEST_CODE_POST = 10;
     private final int REQUEST_CODE_REPLY = 20;
@@ -46,7 +50,13 @@ public class TimelineActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timeline);
+//        setContentView(R.layout.activity_timeline);
+
+        ActivityTimelineBinding binding = ActivityTimelineBinding.inflate(getLayoutInflater());
+
+        // layout of activity is stored in a special property called root
+        View view = binding.getRoot();
+        setContentView(view);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setLogo(R.drawable.ic_twitter_logo);
@@ -55,7 +65,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient(this);
 
-        swipeContainer = findViewById(R.id.swipeContainer);
+        swipeContainer = binding.swipeContainer;
         // Configures the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -70,7 +80,7 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
         // Finds the RecyclerView
-        rvTweets = findViewById(R.id.rvTweets);
+        rvTweets = binding.rvTweets;
 
         // Initializes the list of tweets and adapter
         tweets = new ArrayList<>();
@@ -143,8 +153,12 @@ public class TimelineActivity extends AppCompatActivity {
         // If compose icon has been selected
         if (item.getItemId() == R.id.compose) {
             // Navigate to the compose activity
-            Intent intent = new Intent(this, ComposeActivity.class);
-            startActivityForResult(intent, REQUEST_CODE_POST);
+//            Intent intent = new Intent(this, ComposeActivity.class);
+//            startActivityForResult(intent, REQUEST_CODE_POST);
+            FragmentManager fm = getSupportFragmentManager();
+            ComposeDialogFragment composeDialogFragment = ComposeDialogFragment.newInstance("Some Title");
+            composeDialogFragment.show(fm, "fragment_edit_name");
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -226,5 +240,14 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure", throwable);
             }
         });
+    }
+
+    @Override
+    public void onFinishEditDialog(Tweet tweet) {
+        // Updates the RecyclerView with the tweet
+        tweets.add(0, tweet);
+        // Notifies the adapter that the tweet was added
+        adapter.notifyItemInserted(0);
+        rvTweets.smoothScrollToPosition(0);
     }
 }

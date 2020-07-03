@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codepath.apps.restclienttemplate.databinding.ActivityReplyBinding;
+import com.codepath.apps.restclienttemplate.databinding.ActivityTimelineBinding;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -35,7 +37,13 @@ public class ReplyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reply);
+//        setContentView(R.layout.activity_reply);
+
+        ActivityReplyBinding binding = ActivityReplyBinding.inflate(getLayoutInflater());
+
+        // layout of activity is stored in a special property called root
+        View view = binding.getRoot();
+        setContentView(view);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setLogo(R.drawable.ic_twitter_logo);
@@ -44,9 +52,9 @@ public class ReplyActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient(this);
 
-        etCompose = findViewById(R.id.etCompose);
-        btnTweet = findViewById(R.id.btnTweet);
-        tvReplyTo = findViewById(R.id.tvReplyTo);
+        etCompose = binding.etCompose;
+        btnTweet = binding.btnTweet;
+        tvReplyTo = binding.tvReplyTo;
 
         tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
         tvReplyTo.setText(String.format("In reply to %s", tweet.user.name));

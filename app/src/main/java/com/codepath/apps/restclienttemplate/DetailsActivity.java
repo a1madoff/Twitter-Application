@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.databinding.ActivityDetailsBinding;
+import com.codepath.apps.restclienttemplate.databinding.ActivityTimelineBinding;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.parceler.Parcels;
@@ -44,25 +46,31 @@ public class DetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+//        setContentView(R.layout.activity_details);
+
+        ActivityDetailsBinding binding = ActivityDetailsBinding.inflate(getLayoutInflater());
+
+        // layout of activity is stored in a special property called root
+        View view = binding.getRoot();
+        setContentView(view);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setLogo(R.drawable.ic_twitter_logo);
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayUseLogoEnabled(true);
 
-        ivProfileImage = findViewById(R.id.ivProfileImage);
-        tvBody = findViewById(R.id.tvBody);
-        tvScreenName = findViewById(R.id.tvScreenName);
-        tvSpacedName = findViewById(R.id.tvSpacedName);
-        tvRelativeTime = findViewById(R.id.tvRelativeTime);
-        ivContentImage = findViewById(R.id.ivContentImage);
+        ivProfileImage = binding.ivProfileImage;
+        tvBody = binding.tvBody;
+        tvScreenName = binding.tvScreenName;
+        tvSpacedName = binding.tvSpacedName;
+        tvRelativeTime = binding.tvRelativeTime;
+        ivContentImage = binding.ivContentImage;
 
-        ivReply = findViewById(R.id.ivReply);
-        ivRetweet = findViewById(R.id.ivRetweet);
-        tvNumRetweets = findViewById(R.id.tvNumRetweets);
-        ivHeart = findViewById(R.id.ivHeart);
-        tvNumLikes = findViewById(R.id.tvNumLikes);
+        ivReply = binding.ivReply;
+        ivRetweet = binding.ivRetweet;
+        tvNumRetweets = binding.tvNumRetweets;
+        ivHeart = binding.ivHeart;
+        tvNumLikes = binding.tvNumLikes;
 
         context = this;
         tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
