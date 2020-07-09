@@ -43,6 +43,8 @@ The following **additional** features are implemented:
 
 * [x] Tweets dynamically show the number of likes and retweets next to their corresponding icons
 * [x] Displays an informative message and prevents the user from posting a tweet if it is empty or over 280 characters
+* [x] User can retweet, favorite, and reply from the timeline and details pages.
+* [x] Wrote method to convert relative timestamps to abbreviated, Twitter form for cleaner UI
 
 ## Video Walkthrough
 
